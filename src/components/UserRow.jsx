@@ -7,7 +7,7 @@ const UserRow = ({ username, name, active, role }) => {
 	return (
 		<div className={style.wrapper}>
 			<div className={style.name}>
-				<UserDisplay name={name} username={username} />
+				<UserDisplay name={name} username={username}/>
 			</div>
 			<div className={style.status}>
 				<UserStatus active={active} />

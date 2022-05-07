@@ -39,11 +39,19 @@ const useFilters = () => {
 			search
 		});
 
-	const setOnlyActive = onlyActive =>
-		setFilters({
-			...filters,
-			onlyActive
-		});
+	const setOnlyActive = onlyActive => {
+		if (onlyActive && filters.sortBy === 3)
+			setFilters({
+				...filters,
+				onlyActive,
+				sortBy: 0
+			});
+		else
+			setFilters({
+				...filters,
+				onlyActive
+			});
+	};
 
 	const setSortBy = sortBy =>
 		setFilters({
@@ -90,6 +98,19 @@ const sortUsers = (users, sortBy) => {
 				if (a.name > b.name) return 1;
 				if (a.name < b.name) return -1;
 				return 0;
+			});
+		case 2:
+			return sortedUsers.sort((a, b) => {
+				if (a.role === b.role) return 0;
+				if (a.role === 'teacher') return -1;
+				if (a.role === 'student' && b.role === 'other') return -1;
+				return 1;
+			});
+		case 3:
+			return sortedUsers.sort((a, b) => {
+				if (a.active === b.active) return 0;
+				if (a.active && !b.active) return -1;
+				return 1;
 			});
 		default:
 			return sortedUsers;
